@@ -1,0 +1,145 @@
+project_root_path: F:\scRNA\integrate_pipeline
+project_output_path: F:\scRNA\integrate_pipeline/output
+project_baseline:
+  cellranger_data:
+    use: TRUE
+  filted_data_list:
+    use: FALSE
+    data_path: F:/scRNA/integrate_pipeline/output/integrated/QC/filted_data_list.rds
+  filted_data_merge:
+    use: FALSE
+    data_path: F:\scRNA\integrate_pipeline\output\integrated\raw_data_after_clean.rds
+keeptcr: FALSE
+addtcttometa: TRUE
+species:
+  - human
+quality_control_method:
+  standard_deviation:
+    use: TRUE
+    minimum_umi: 500
+    minimum_gene: 500
+    confidence_interval: 2
+  extremum:
+    use: FALSE
+    minimum_umi: 500
+    minimum_gene: 500
+    maximum_umi: 18000
+    maximum_gene: 3000
+  filtering_standard:
+    mt: 10
+    hb: 0.1
+scrub:
+  doublet_rate: 0.08
+integration:
+  normalization:
+    regresscellcycle: all # pick from: all or difference(s.score - g2m.score)
+    sctransform:
+      use: TRUE
+      nfeatures: 1500
+    lognorlization:
+      use: FALSE
+      method: LogNormalize # pick one method from: LogNormalize, CLR and RC
+      nfeatures: 1500
+  method:
+    harmony:
+      use: FALSE
+      ndims:
+        - 30
+      groupby:
+        - Orig.ident
+      lamda:
+        - 1
+    RPCA:
+      use: TRUE
+      ndims:
+        - 30
+    CCA:
+      use: FALSE
+      ndims:
+        - 30
+reduction:
+  nfeaturesforpca: 1500
+  pca:
+    npcs: 50
+    jackstraw: NULL
+  umap:
+    npcs: 25
+  tsne:
+    npcs: 25
+cluster:
+  reductiontouse: harmony
+  ndims: 30
+  
+markergenes:
+  monocytes:
+    - Cd14
+    - Lyz2
+    - Fcgr3
+    - C1qa
+    - C1qb
+    - Cd74
+    - H2-Ab1
+  TNK:
+    - Cd3d
+    - Cd3e
+    - Cd4
+    - Cd8b1
+    - Nkg7
+    - Ncr1
+  B:
+    - Cd79a
+    - Cd79b
+    - Cd19
+  VSMC:
+    - Acta2
+    - Cald1
+    - Cnn1
+    - Myl9
+    - Tpm2
+    - Tagln
+  Fibro:
+    - Col1a1
+    - Pdpn
+    - Dcn
+    - Lum
+    - Serpinf1
+    - Dpt
+  EC:
+    - Pecam1
+    - Cdh5
+    - lcam2
+    - Egfl7
+    - Cytl1
+    - Vwf
+  Neurons:
+    - Plp1
+    - Kcna1
+    - Mbp
+  add:
+    - Ptprc
+    - Ly6g
+  featureplot: # do not delete
+    
+
+data:
+  meta_data_key: # keep its order, not remove
+    - orig.ident
+    - Samplename
+    - Age
+    - Gender
+  CQX_6Y:
+    path: K:\Renji\age\AGE_6y_data_to_CL_20230118\CQX_6Y-0500_06_MALE\5\2.2.filtered_feature_bc_matrix
+    tcrpath: K:\Renji\age\AGE_6y_data_to_CL_20230118\CQX_6Y-0500_06_MALE\TCR\3.filtered_contig_and_anno\filtered_contig_annotations.csv
+    bcrpath: K:\Renji\age\AGE_6y_data_to_CL_20230118\CQX_6Y-0500_06_MALE\BCR\3.filtered_contig_and_anno\filtered_contig_annotations.csv
+    orig.ident: CQX_6Y
+    Samplename: CQX
+    Age: 6
+    Gender: Male
+  LBQ_90Y:
+    path: K:\Renji\age\AGE_6y_data_to_CL_20230118\LBQ_90jiaY-0502_04_MALE\5\2.2.filtered_feature_bc_matrix
+    tcrpath: K:\Renji\age\AGE_6y_data_to_CL_20230118\LBQ_90jiaY-0502_04_MALE\TCR\3.filtered_contig_and_anno\filtered_contig_annotations.csv
+    bcrpath: K:\Renji\age\AGE_6y_data_to_CL_20230118\LBQ_90jiaY-0502_04_MALE\BCR\3.filtered_contig_and_anno\filtered_contig_annotations.csv
+    orig.ident: LBQ_90Y
+    Samplename: LBQ
+    Age: 90
+    Gender: Male

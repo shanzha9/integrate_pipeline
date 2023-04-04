@@ -1,0 +1,17 @@
+reqirement:
+  - Seurat
+  - tibble
+  - Matrix
+  - tidyverse
+  - yaml
+  - stringr
+  - SeuratWrappers
+  - reticulate
+  - patchwork
+  - harmony
+  - assertthat
+  - tidyr
+  - rjson
+support_species:
+  - human or homo sapiens
+  # - mouse or mus musculus
